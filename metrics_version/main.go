@@ -12,11 +12,11 @@ import (
 )
 
 func main(){
-	rand.Seed(time.Now().Unix())
-	http.HandleFunc("/abc", index)
-	http.Handle("/metrics", promhttp.Handler())
-	metrics.Register()
-	err := http.ListenAndServe(":5565", nil) // 设置监听的端口
+	rand.Seed(time.Now().Unix()) 			// 设置随机数种子
+	http.HandleFunc("/abc", index)  		//普通服务请求处理
+	http.Handle("/metrics", promhttp.Handler()) 	
+	metrics.Register() 				//通过url方式访问prometheus数据
+	err := http.ListenAndServe(":5565", nil) 	// 设置监听的端口
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
@@ -24,8 +24,8 @@ func main(){
 
 func index(w http.ResponseWriter, r *http.Request) {
 	timer:=metrics.NewAdmissionLatency()
-	metrics.RequestIncrease()
-	num:=os.Getenv("Num")
+	metrics.RequestIncrease() 		// 请求计数器加一，标记当前时间
+	num:=os.Getenv("Num")    		// 获取环境变量
 	if num==""{
 		ans10:=Factorial(10)
 		str:="there is no env Num. Computed factorial of 10. The answer is "+strconv.Itoa(ans10)+" \n"
@@ -43,10 +43,10 @@ func index(w http.ResponseWriter, r *http.Request) {
 			log.Println("err:"+err.Error()+" Yes\n")
 		}
 	}
-	timer.Observe()
+	timer.Observe() 			//记录所需时间
 }
 
-func Factorial(n int)int{
+func Factorial(n int)int{  // 计算阶乘
 	if n<=2{
 		return n
 	}else{
