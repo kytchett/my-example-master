@@ -1,0 +1,22 @@
+
+├── README
+├── deploy                       部署资源对象时使用的配置文件
+│   ├── deployment.yaml          云服务的Deployment配置文件
+│   ├── nginx-deployment.yaml     
+│   ├── nginx-svc.yaml           测试实验任务5所用到的配置文件
+│   ├── prometheus.config.yml    prometheus抓取目标配置文件
+│   ├── prometheus.deployment.yml    prometheus部署所使用Deployment
+│   ├── prometheus.rbac.yml      prometheus权限配置文件
+│   └── service.yaml
+├── go.mod                       依赖管理
+├── go.sum                       依赖管理
+├── metrics                      定义一些Prometheus的指标
+│   └── metrics.go
+├── metrics_version              带有Prometheus监控版本
+│   └── main.go                  带有Prometheus监控版本的代码
+│   └── Dockerfile               制作镜像所使用
+│   └── example                  main编译生成的运行文件
+└── without_metrics              不带有Prometheus监控版本
+    └── main.go                  不带有Prometheus监控版本的代码
+    └── Dockerfile               制作镜像所使用
+    └── example                  main编译生成的运行文件
