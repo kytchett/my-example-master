@@ -26,17 +26,17 @@ func index(w http.ResponseWriter, r *http.Request) {
 	timer:=metrics.NewAdmissionLatency()
 	metrics.RequestIncrease() 		// 请求计数器加一，标记当前时间
 	num:=os.Getenv("Num")    		// 获取环境变量
-	if num==""{
-		ans10:=Factorial(10)
+	if num==""{ 				// 环境变量无效
+		ans10:=Factorial(10) 		// 认计算10的阶乘
 		str:="there is no env Num. Computed factorial of 10. The answer is "+strconv.Itoa(ans10)+" \n"
 		_,err:=w.Write([]byte(str))
 		if err!=nil{
 			log.Println("err:"+err.Error()+" No\n")
 		}
-	}else{
+	}else{ 					//环境变量有效
 		numInt,_:=strconv.Atoi(num)
-		randNum:=rand.Intn(numInt) + 1
-		ans:=Factorial(randNum)
+		randNum:=rand.Intn(numInt) + 1	// 使计算的阶乘数大于0，获取需计算阶乘的随机数
+		ans:=Factorial(randNum)		// 计算阶乘
 		str:="there is env Num. Computed factorial of "+strconv.Itoa(randNum)+". The answer is "+strconv.Itoa(ans)+" \n"
 		_,err:=w.Write([]byte(str))
 		if err!=nil{
